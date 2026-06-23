@@ -182,13 +182,19 @@ resource "aws_iam_role_policy" "scaler_lambda_policy" {
         {
           Effect = "Allow"
           Action = [
-            "ssm:SendCommand",
-            "ssm:GetCommandInvocation"
+            "ssm:SendCommand"
           ]
           Resource = [
             "arn:aws:ssm:${data.aws_region.current.id}::document/AWS-RunShellScript",
             "arn:aws:ec2:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:instance/*"
           ]
+        },
+        {
+          # GetCommandInvocation acts on a command-invocation resource, which
+          # does not support the document/instance ARN scoping used above.
+          Effect   = "Allow"
+          Action   = ["ssm:GetCommandInvocation"]
+          Resource = ["*"]
         }
       ] : [],
       var.scaler_enable_elastic_ci_mode ? [
