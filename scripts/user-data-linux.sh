@@ -31,7 +31,6 @@ BUILDKITE_ENABLE_INSTANCE_STORAGE="${enable_instance_storage}" \
 Content-Type: text/x-shellscript; charset="us-ascii"
 #!/bin/bash -v
 # Ensure SSM Agent is installed and running
-yum update -y
 yum install -y amazon-ssm-agent
 systemctl enable amazon-ssm-agent
 systemctl start amazon-ssm-agent
