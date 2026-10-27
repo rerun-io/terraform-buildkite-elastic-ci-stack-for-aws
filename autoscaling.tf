@@ -246,7 +246,7 @@ resource "aws_autoscaling_group" "agent_auto_scale_group" {
   }
 
   lifecycle {
-    ignore_changes = [suspended_processes]
+    ignore_changes = [suspended_processes, min_size, max_size]
   }
 }
 
